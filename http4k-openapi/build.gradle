@@ -1,0 +1,8 @@
+description = 'http4k OpenApi'
+
+dependencies {
+    compile project(":http4k-core")
+    compile Libs.kotlin_reflect
+    implementation project(":http4k-security-oauth")
+    implementation project(":http4k-format-jackson")
+}
