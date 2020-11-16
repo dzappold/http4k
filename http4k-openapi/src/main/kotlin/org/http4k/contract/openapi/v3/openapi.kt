@@ -10,17 +10,10 @@ import org.http4k.contract.security.Security
 import org.http4k.core.Filter
 import org.http4k.core.HttpHandler
 import org.http4k.core.Method
-import org.http4k.core.Method.GET
-import org.http4k.core.Method.POST
 import org.http4k.core.NoOp
-import org.http4k.core.Request
-import org.http4k.core.Response
-import org.http4k.core.Status.Companion.OK
-import org.http4k.format.Jackson
 import org.http4k.format.Json
 import org.http4k.routing.PathMethod
 import org.http4k.routing.RoutingHttpHandler
-import org.http4k.routing.bind
 
 fun <NODE> openApi3(
     apiInfo: ApiInfo,
@@ -37,19 +30,6 @@ fun <NODE> openApi3(
 data class DescriptionRoute(val descriptionPath: String = "/",
                             val descriptionSecurity: Security? = null,
                             val includeDescriptionRoute: Boolean = false)
-
-val a = openApi3(
-    ApiInfo("title", "version"),
-    routes(
-        "/{bob}" bind GET meta {} to { Response(OK) },
-        "/{bob2}" bind POST meta {} to { Response(OK) },
-        "/{bob2}" bind routes(
-            GET meta {} to { r: Request -> Response(OK) },
-            POST meta {} to { r: Request -> Response(OK) }
-        )
-    ),
-    Jackson
-)
 
 infix fun String.bind(methodMetas: MethodMetaBindings): Iterable<CRoute> = TODO()
 
